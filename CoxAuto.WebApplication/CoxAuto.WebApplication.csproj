@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6aa5b2a8-01a1-4adf-8a86-da31139931b8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoxAuto.Service\CoxAuto.Service.csproj" />
+  </ItemGroup>
+
+</Project>

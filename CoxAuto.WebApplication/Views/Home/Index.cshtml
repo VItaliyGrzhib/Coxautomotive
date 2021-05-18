@@ -1,0 +1,97 @@
+﻿<style>
+        h1 {
+            color: navy;
+            margin-left: 20px;
+        }
+      
+        table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+         }
+
+        html {
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+        }
+
+        thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+         tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+         tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+
+  </style>
+
+<h1>Cox Automotive</h1>
+
+<div class="text-center">
+    <input type="file" onchange="UploadFile(event)">
+</div>
+
+<div class="container">
+    <table class="table">
+        <tr>
+            <th> DealNumber</th>
+            <th> CustomerName</th>
+            <th> DealershipName</th>
+            <th> Vehicle</th>
+            <th> Price</th>
+            <th> Date</th>
+        </tr>
+        <tbody id="data">
+        </tbody>
+    </table>
+</div>
+@section scripts {
+    <script>
+        var UploadFile = function (e) {
+            let file = e.target.files[0];
+            let formData = new FormData();
+            formData.append("file", file);
+            axios.post("/Home/FileInModel", formData).then(
+                data => {
+                    let res = data.data;
+                    if (res.length > 0) {
+                        let temp = "";
+                        res.forEach((u) => {
+                            temp += "<tr>";
+                            temp += "<td>" + u.dealNumber + "</td>";
+                            temp += "<td>" + u.customerName + "</td>";
+                            temp += "<td>" + u.dealershipName + "</td>";
+                            temp += "<td>" + u.vehicle + "</td>";
+                            temp += "<td>" + u.price + "</td>";
+                            temp += "<td>" + u.date + "</td>";
+                        })
+                        document.getElementById("data").innerHTML = temp;
+                    }
+                }
+            ).catch(e => {
+                document.getElementById("data").innerHTML = "File Error!";
+            })
+        }
+    </script>
+}
